@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     private Player player;
     private Rigidbody2D rb2d;
+    private Animator anim;
 
     private bool wingsAreUp = false;
 
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     void Start(){
         player = GetComponent<Player>();
         rb2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,10 +38,14 @@ public class PlayerController : MonoBehaviour
 
     private void RaiseWings() {
         wingsAreUp = true;
+
+        //set anim
+        anim.SetBool("wingsAreOpen", wingsAreUp);
     }
 
     private void LowerWings(float force) {
         wingsAreUp = false;
+        anim.SetBool("wingsAreOpen", wingsAreUp);
         rb2d.AddForce(new Vector2(0, 1) * force, ForceMode2D.Impulse);
     }
 
