@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 808039482}
   - component: {fileID: 808039480}
   - component: {fileID: 808039484}
+  - component: {fileID: 808039485}
   - component: {fileID: 808039481}
   m_Layer: 0
   m_Name: bordy
@@ -176,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4231373c4c6cf408ca9b3501586c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 808039479}
 --- !u!212 &808039482
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -258,6 +258,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0.043412924, y: 2.0953405}
   m_Size: {x: 2.9843335, y: 4.0459704}
   m_Direction: 0
+--- !u!114 &808039485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808039479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9a65364a3bbbf46a3ac0f954b7bb59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  flapForce: 1
+  player: {fileID: 0}
 --- !u!1 &866683939
 GameObject:
   m_ObjectHideFlags: 0
