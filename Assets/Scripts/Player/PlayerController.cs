@@ -7,33 +7,45 @@ public class PlayerController : MonoBehaviour
 {
     private Player player;
     private Rigidbody2D rb2d;
-    private Animator anim;
+    [SerializeField]private Animator anim;
 
     private bool wingsAreUp = false;
+    float speed;
 
     // Start is called before the first frame update
     void Start(){
         player = GetComponent<Player>();
         rb2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
+        speed = player.speed;
     }
 
     // Update is called once per frame
     void FixedUpdate(){
-        Move(player.speed);
+        if(player.isGrounded) {
+            speed = player.speed; //not optimal, but its the quick and dirty way to toggle between speeds
+        }
 
         //when the space/"jump" button is down, the wings open, when it is released it closes
         if(wingsAreUp) {
-            Glide();
+            if(!player.isGrounded) {
+                Glide();
+            }
             if (Input.GetAxisRaw("Jump") == 0)
                 LowerWings(player.flapForce);
         } else if (Input.GetAxisRaw("Jump") == 1 && !wingsAreUp) {
             RaiseWings();
         }
+
+        Move();
     }
 
-    private void Move(float speed) {
-        player.transform.Translate(new Vector2(Input.GetAxis("Horizontal"), 0) * Time.deltaTime * speed);
+    private void Move() {
+        float moveDir = Input.GetAxis("Horizontal");
+        //if input is recieved, see if we turned
+        if(moveDir != 0)
+            anim.SetBool("facingRight", moveDir > 0);
+        player.transform.Translate(new Vector2(moveDir, 0) * Time.deltaTime * speed);
     }
 
     private void RaiseWings() {
@@ -55,7 +67,7 @@ public class PlayerController : MonoBehaviour
         
         vel.y *= 0.7f;        //modify drag here
 
-        vel.x += 0f;          //modify forward vector here
+        speed = player.speed * 2;          //modify forward vector here
 
         rb2d.velocity = vel;  //Apply changes
     }
