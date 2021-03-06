@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour{
+    
     public bool[] eggs = { false };
-
 
     public void FindEgg(int id) {
         eggs[id] = true;
 
         //check if this was the last egg and if we won
         if(checkIfAllEggsFound()) {
-            //- end the game
+            EndGame();
         }
     }
 
@@ -26,5 +27,9 @@ public class GameManager : MonoBehaviour
         }
 
         return allFound;
+    }
+
+    private void EndGame() {
+        SceneManager.LoadScene("End");
     }
 }
